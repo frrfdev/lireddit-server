@@ -16,4 +16,5 @@ export default {
   user: DB_USER,
   password: DB_PASSWORD,
   host: DB_HOST,
+  port: 5432,
 } as Parameters<typeof MikroORM.init>[0];
