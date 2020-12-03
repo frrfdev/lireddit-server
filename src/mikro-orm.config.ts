@@ -8,6 +8,7 @@ export default {
   migrations: {
     path: path.join(__dirname, "./migrations"),
     pattern: /^[\w-]+\d+\.[tj]s$/,
+    disableForeignKeys: false
   },
   entities: [Post, User],
   dbName: DB_NAME,
@@ -17,4 +18,5 @@ export default {
   password: DB_PASSWORD,
   host: DB_HOST,
   port: 5432,
+  replicas: 
 } as Parameters<typeof MikroORM.init>[0];
