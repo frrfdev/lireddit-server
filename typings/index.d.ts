@@ -1,3 +1,7 @@
-declare module "express-session";
+declare module "express-session" {
+  interface Session {
+    userId: number;
+  }
+}
 declare module "connect-redis";
 declare module "redis";
