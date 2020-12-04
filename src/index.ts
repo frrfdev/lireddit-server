@@ -4,13 +4,10 @@ import { MikroORM } from "@mikro-orm/core";
 import express from "express";
 import { PORT, __prod__ } from "./constants";
 import { ApolloServer } from "apollo-server-express";
-import { buildSchema } from "type-graphql";
-import { HelloResolver } from "./resolvers/hello";
-import { PostResolver } from "./resolvers/post";
-import { UserResolver } from "./resolvers/user";
 
 // Configs
 import mikroConfig from "./config/mikro-orm.config";
+import apolloConfig from "./config/apollo.config";
 import sessionConfig from "./config/session.config";
 
 const main = async () => {
