@@ -11,6 +11,8 @@ export default session({
   store: new RedisStore({
     client: redisClient,
     disableTouch: true,
+    host: __prod__ ? "ec2-54-156-252-144.compute-1.amazonaws.com" : "",
+    port: __prod__ ? 22459 : 6379,
   }),
   cookie: {
     maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
