@@ -1,8 +1,18 @@
 import { Connection, EntityManager, IDatabaseDriver } from "@mikro-orm/core";
-import { Request, Response } from "express";
+import * as Express from "express";
 
-export type MyContext = {
+// declare module "express-session" {
+//   interface Session {
+//     userId: number;
+//   }
+// }
+
+export interface MyContext {
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>;
-  req: Request;
-  res: Response;
-};
+  req: Express.Request & {
+    session: {
+      userId: number;
+    };
+  };
+  res: Express.Response;
+}
