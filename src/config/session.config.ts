@@ -7,6 +7,7 @@ const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
   host: __prod__ ? "ec2-54-156-252-144.compute-1.amazonaws.com" : "",
   port: __prod__ ? 22459 : 6379,
+  password: "p2246769a1fc0ac8aed4701672c222a64f8b8336ea0d773ecc63a4982155c0788",
 });
 
 export default session({
