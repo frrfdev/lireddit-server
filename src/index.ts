@@ -14,11 +14,12 @@ const main = async () => {
   const conn = await MikroORM.init(mikroConfig);
   await conn.getMigrator().up();
 
+  const corsConfig = { credentials: true };
   const app = express();
   app.use(sessionConfig);
 
   const apolloServer = new ApolloServer(await apolloConfig(conn));
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: corsConfig });
 
   app.get("/", (_, res) => {
     return res.send("hello");
