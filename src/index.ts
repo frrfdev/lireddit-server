@@ -16,6 +16,7 @@ const main = async () => {
 
   const corsConfig = { credentials: true };
   const app = express();
+  app.set("trust proxy", 1);
   app.use(sessionConfig);
 
   const apolloServer = new ApolloServer(await apolloConfig(conn));
