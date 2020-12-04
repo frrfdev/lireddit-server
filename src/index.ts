@@ -1,7 +1,8 @@
+// Dependencies
 import "reflect-metadata";
 import { MikroORM } from "@mikro-orm/core";
 import express from "express";
-import { PORT } from "./constants";
+import { PORT, __prod__ } from "./constants";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
@@ -10,23 +11,16 @@ import { UserResolver } from "./resolvers/user";
 
 // Configs
 import mikroConfig from "./config/mikro-orm.config";
+import sessionConfig from "./config/session.config";
 
 const main = async () => {
   const conn = await MikroORM.init(mikroConfig);
   await conn.getMigrator().up();
 
   const app = express();
+  app.use(sessionConfig);
 
-  const apolloServer = new ApolloServer({
-    schema: await buildSchema({
-      resolvers: [HelloResolver, PostResolver, UserResolver],
-      validate: false,
-    }),
-    context: () => ({
-      em: conn.em,
-    }),
-  });
-
+  const apolloServer = new ApolloServer(await apolloConfig(conn));
   apolloServer.applyMiddleware({ app });
 
   app.get("/", (_, res) => {
