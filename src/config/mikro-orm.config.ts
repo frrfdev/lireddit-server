@@ -1,8 +1,8 @@
 import { MikroORM } from "@mikro-orm/core";
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USER, __prod__ } from "./constants";
-import { Post } from "./entities/Post";
+import { DB_HOST, DB_NAME, DB_PASSWORD, DB_USER, __prod__ } from "../constants";
+import { Post } from "../entities/Post";
 import path from "path";
-import { User } from "./entities/User";
+import { User } from "../entities/User";
 
 export default {
   migrations: {
