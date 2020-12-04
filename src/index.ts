@@ -1,5 +1,4 @@
 import "reflect-metadata";
-import mikroConfig from "./mikro-orm.config";
 import { MikroORM } from "@mikro-orm/core";
 import express from "express";
 import { PORT } from "./constants";
@@ -8,6 +7,9 @@ import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
 import { PostResolver } from "./resolvers/post";
 import { UserResolver } from "./resolvers/user";
+
+// Configs
+import mikroConfig from "./config/mikro-orm.config";
 
 const main = async () => {
   const conn = await MikroORM.init(mikroConfig);
