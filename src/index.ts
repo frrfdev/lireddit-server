@@ -19,8 +19,8 @@ const main = async () => {
   app.set("trust proxy", 1);
   app.use(
     cors({
-      // origin: /https:\/\/lireddit-web01.*/gm,
-      origin: "https://lireddit-web01-293j61npp.vercel.app",
+      origin: /https:\/\/lireddit-web01.*/,
+      // origin: "https://lireddit-web01-293j61npp.vercel.app",
       credentials: true,
     })
   );
