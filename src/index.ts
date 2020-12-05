@@ -4,6 +4,7 @@ import { MikroORM } from "@mikro-orm/core";
 import express from "express";
 import { PORT, __prod__ } from "./constants";
 import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
 
 // Configs
 import mikroConfig from "./config/mikro-orm.config";
@@ -14,13 +15,23 @@ const main = async () => {
   const conn = await MikroORM.init(mikroConfig);
   await conn.getMigrator().up();
 
-  const corsConfig = { credentials: true };
   const app = express();
   app.set("trust proxy", 1);
+  app.use(
+    cors({
+      origin: ["http://localhost:3000", "https://lireddit-web01.vercel.app/"],
+      credentials: true,
+    })
+  );
   app.use(sessionConfig);
 
   const apolloServer = new ApolloServer(await apolloConfig(conn));
-  apolloServer.applyMiddleware({ app, cors: corsConfig });
+  apolloServer.applyMiddleware({
+    app,
+    cors: {
+      origin: false,
+    },
+  });
 
   app.get("/", (_, res) => {
     return res.send("hello");
