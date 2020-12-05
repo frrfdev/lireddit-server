@@ -12,6 +12,13 @@ import {
 } from "type-graphql";
 import { User } from "../entities/User";
 import argon2 from "argon2";
+import {
+  passwordEmpty,
+  passwordIncorrect,
+  usernameDuplicated,
+  usernameEmpty,
+  usernameNotFound,
+} from "src/utils/errorMessages";
 
 @InputType()
 class UsernamePasswordInput {
@@ -73,16 +80,12 @@ export class UserResolver {
   ): Promise<UserResponse> {
     if (!options.username)
       return {
-        errors: [
-          { message: "The username cannot be empty", field: "username" },
-        ],
+        errors: [{ message: usernameEmpty, field: "username" }],
       };
 
     if (!options.password)
       return {
-        errors: [
-          { message: "The username cannot be empty", field: "password" },
-        ],
+        errors: [{ message: passwordEmpty, field: "password" }],
       };
 
     const hashedPassword = await argon2.hash(options.password);
@@ -98,7 +101,7 @@ export class UserResolver {
       // duplicated error
       if (error.code === "23505" || error.detail.includes("already exists")) {
         return {
-          errors: [{ message: "username already taken", field: "username" }],
+          errors: [{ message: usernameDuplicated, field: "username" }],
         };
       }
     }
@@ -115,16 +118,14 @@ export class UserResolver {
 
     if (!user)
       return {
-        errors: [
-          { field: "username", message: "that username doesn't exists" },
-        ],
+        errors: [{ field: "username", message: usernameNotFound }],
       };
 
     const valid = await argon2.verify(user.password, options.password);
 
     if (!valid)
       return {
-        errors: [{ field: "password", message: "incorrect password" }],
+        errors: [{ field: "password", message: passwordIncorrect }],
       };
 
     req.session.userId = user.id;
