@@ -20,7 +20,7 @@ const main = async () => {
   app.use(
     cors({
       // origin: /https:\/\/lireddit-web01.*/gm,
-      origin: "https://lireddit-web01-293j61npp.vercel.app/",
+      origin: "https://lireddit-web01-293j61npp.vercel.app",
       credentials: true,
     })
   );
