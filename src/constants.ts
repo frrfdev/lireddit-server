@@ -1,4 +1,9 @@
 export const __prod__ = process.env.NODE_ENV === "production";
+
+export const SECRET = __prod__
+  ? process.env.SECRET ?? "362356"
+  : "asdasodpaksospk3235236";
+
 export const PORT = process.env.PORT ?? 4000;
 
 export const DB_NAME = __prod__ ? process.env.DATABASE_NAME : "lireddit";

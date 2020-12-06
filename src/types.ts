@@ -9,10 +9,6 @@ import * as Express from "express";
 
 export interface MyContext {
   em: EntityManager<any> & EntityManager<IDatabaseDriver<Connection>>;
-  req: Express.Request & {
-    session: {
-      userId: number;
-    };
-  };
+  req: Express.Request;
   res: Express.Response;
 }

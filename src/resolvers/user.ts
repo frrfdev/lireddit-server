@@ -64,7 +64,7 @@ export class UserResolver {
 
   @Query(() => User, { nullable: true })
   async me(@Ctx() { em, req }: MyContext): Promise<User | null> {
-    const id = req.session.userId;
+    const id = (req as any).session.userId;
 
     console.log(req.session);
     console.log(id);
@@ -113,7 +113,7 @@ export class UserResolver {
       }
     }
 
-    req.session.userId = user.id;
+    (req as any).session.userId = user.id;
 
     return { user };
   }
@@ -137,7 +137,7 @@ export class UserResolver {
         errors: [{ field: "password", message: passwordIncorrect }],
       };
 
-    req.session.userId = user.id;
+    (req as any).session.userId = user.id;
 
     return { user };
   }
