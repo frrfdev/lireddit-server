@@ -1,13 +1,13 @@
 import session from "express-session";
 import connectRedis from "connect-redis";
 import redis from "redis";
-import { __prod__ } from "../constants";
+import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT, __prod__ } from "../constants";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
-  host: __prod__ ? "ec2-54-156-252-144.compute-1.amazonaws.com" : "",
-  port: __prod__ ? 22459 : 6379,
-  password: "p2246769a1fc0ac8aed4701672c222a64f8b8336ea0d773ecc63a4982155c0788",
+  host: REDIS_HOST,
+  port: REDIS_PORT,
+  password: REDIS_PASSWORD,
 });
 
 export default session({
