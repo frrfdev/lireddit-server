@@ -1,7 +1,3 @@
-declare module "express-session" {
-  interface SessionData {
-    userId: number;
-  }
-}
+declare module "express-session";
 declare module "connect-redis";
 declare module "redis";
