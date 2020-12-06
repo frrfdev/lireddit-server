@@ -18,7 +18,8 @@ import {
   usernameDuplicated,
   usernameEmpty,
   usernameNotFound,
-} from "src/utils/errorMessages";
+} from "../utils/errorMessages";
+import { alreadyExists } from "../utils/errors";
 
 @InputType()
 class UsernamePasswordInput {
@@ -76,7 +77,7 @@ export class UserResolver {
   @Mutation(() => UserResponse)
   async register(
     @Arg("options") options: UsernamePasswordInput,
-    @Ctx() { em }: MyContext
+    @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
     if (!options.username)
       return {
@@ -99,12 +100,14 @@ export class UserResolver {
       await em.persistAndFlush(user);
     } catch (error) {
       // duplicated error
-      if (error.code === "23505" || error.detail.includes("already exists")) {
+      if (alreadyExists(error)) {
         return {
           errors: [{ message: usernameDuplicated, field: "username" }],
         };
       }
     }
+
+    req.session.userId = user.id;
 
     return { user };
   }
