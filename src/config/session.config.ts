@@ -1,13 +1,7 @@
 import session from "express-session";
 import connectRedis from "connect-redis";
 import redis from "redis";
-import {
-  REDIS_HOST,
-  REDIS_PASSWORD,
-  REDIS_PORT,
-  SECRET,
-  __prod__,
-} from "../constants";
+import { REDIS_HOST, REDIS_PASSWORD, REDIS_PORT, __prod__ } from "../constants";
 
 const RedisStore = connectRedis(session);
 const redisClient = redis.createClient({
