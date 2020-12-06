@@ -2,7 +2,7 @@
 import "reflect-metadata";
 import { MikroORM } from "@mikro-orm/core";
 import express from "express";
-import { PORT, __prod__ } from "./constants";
+import { ORIGIN, PORT, __prod__ } from "./constants";
 import { ApolloServer } from "apollo-server-express";
 import cors from "cors";
 
@@ -19,7 +19,7 @@ const main = async () => {
   app.set("trust proxy", 1);
   app.use(
     cors({
-      origin: "http://localhost:3000",
+      origin: ORIGIN,
       credentials: true,
     })
   );
