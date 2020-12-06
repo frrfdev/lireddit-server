@@ -28,8 +28,9 @@ export default session({
     secure: __prod__,
     sameSite: "lax",
   },
+
   proxy: true,
-  secret: SECRET,
+  secret: "SECRET",
   resave: false,
   saveUninitialized: false,
 });
