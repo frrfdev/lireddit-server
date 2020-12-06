@@ -65,8 +65,14 @@ export class UserResolver {
   @Query(() => User, { nullable: true })
   async me(@Ctx() { em, req }: MyContext): Promise<User | null> {
     const id = req.session.userId;
+
+    console.log(req.session);
+    console.log(id);
+
     if (id) {
       const user = await em.findOne(User, { id });
+
+      console.log(user);
 
       if (user) return user;
     }
